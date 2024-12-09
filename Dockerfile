@@ -20,9 +20,10 @@ useradd --uid $PUID --gid $PGID --comment '' --home-dir /dev/shm --no-create-hom
 mkdir -p $PREFIX/data && \
 chown -R $PUID:$PGID $PREFIX
 
+WORKDIR $PREFIX
 COPY --from=signal-receiver /go/bin/alertmanager-signal-receiver /usr/bin/
 USER app
-ENTRYPOINT ["alertmanager-signal-receiver"]
+ENTRYPOINT ["/usr/bin/alertmanager-signal-receiver"]
 HEALTHCHECK --interval=60s --timeout=3s CMD ["wget", "-q", "-O", "-", "http://localhost:9709/healthz"]
 EXPOSE 9709/tcp
 VOLUME /app/data
