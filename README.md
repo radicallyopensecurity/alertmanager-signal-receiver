@@ -6,6 +6,12 @@ Heavily based on [prometheus-am-executor](https://github.com/imgix/prometheus-am
 
 ## Setup
 
+Build this image
+
+~~~ bash
+docker build -t signal-receiver .
+~~~
+
 Create a volume for signal-cli.
 
 ~~~ bash
@@ -15,7 +21,7 @@ docker volume create signal-data
 Start a temporary container with access to signal-cli.
 
 ~~~ bash
-docker run -it --rm -v signal-data:/app/data --entrypoint bash ghcr.io/dadevel/signal-receiver
+docker run -it --rm -v signal-data:/app/data --entrypoint bash signal-receiver:latest
 ~~~
 
 Register a new phone number.
