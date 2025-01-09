@@ -24,6 +24,6 @@ WORKDIR $PREFIX
 COPY --from=signal-receiver /go/bin/alertmanager-signal-receiver /usr/bin/
 USER app
 ENTRYPOINT ["/usr/bin/alertmanager-signal-receiver"]
-HEALTHCHECK --interval=60s --timeout=3s CMD ["wget", "-q", "-O", "-", "http://localhost:9709/healthz"]
+HEALTHCHECK --interval=60s --timeout=3s CMD ["curl", "-sS", "http://localhost:9709/healthz"]
 EXPOSE 9709/tcp
 VOLUME /app/data
